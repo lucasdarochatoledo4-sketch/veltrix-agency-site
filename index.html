@@ -2,11 +2,12 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>VELTRIX® — Premium Branding Agency</title>
-<meta name="description" content="Veltrix é um estúdio de branding premium: logo design, identidade de marca e social media para marcas que querem parecer inevitáveis.">
-<meta property="og:title" content="VELTRIX® — Premium Branding Agency">
-<meta property="og:description" content="Logo Design · Brand Identity · Social Media. Marcas que parecem inevitáveis.">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07070a">
+<title>VELTRIX® — Estúdio de Marcas Premium</title>
+<meta name="description" content="A Veltrix é um estúdio de marcas premium: criação de logo, identidade de marca, redes sociais, sites e automação de WhatsApp para marcas que querem parecer inevitáveis.">
+<meta property="og:title" content="VELTRIX® — Estúdio de Marcas Premium">
+<meta property="og:description" content="Criação de Logo · Identidade de Marca · Redes Sociais. Marcas que parecem inevitáveis.">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="pt_BR">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90' fill='%237c5cff' font-family='Arial Black'>V</text></svg>">
@@ -19,6 +20,9 @@
   --preto:#07070a;--carvao:#0e0e13;--grafite:#16161d;
   --linha:rgba(255,255,255,.08);--osso:#f4f2ec;--cinza:#9b9aa3;
   --volt:#7c5cff;--volt-claro:#a78bfa;
+  --navh:68px;                       /* altura da nav: o hero se alinha sozinho a ela */
+  --seguro-topo:env(safe-area-inset-top,0px);
+  --seguro-base:env(safe-area-inset-bottom,0px);
 }
 html{scroll-behavior:smooth}
 body{background:var(--preto);color:var(--osso);
@@ -73,8 +77,8 @@ body.aperta #anel{width:52px;height:52px;border-color:var(--volt)}
 
 /* ===== nav ===== */
 nav{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);
-  background:rgba(7,7,10,.5);border-bottom:1px solid var(--linha)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px}
+  background:rgba(7,7,10,.5);border-bottom:1px solid var(--linha);padding-top:var(--seguro-topo)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:var(--navh);gap:12px}
 .logo{font-weight:700;letter-spacing:.22em;font-size:1.02rem;color:var(--osso);text-decoration:none}
 .logo sup{color:var(--volt-claro);font-size:.6em}
 .nav-links{display:flex;gap:30px;align-items:center}
@@ -83,16 +87,18 @@ nav{position:fixed;top:0;left:0;right:0;z-index:90;backdrop-filter:blur(14px);
 .btn-nav{border:1px solid rgba(124,92,255,.6);border-radius:999px;padding:9px 20px;color:var(--osso)!important;
   transition:background .2s,box-shadow .2s}
 .btn-nav:hover{background:var(--volt);box-shadow:0 0 24px rgba(124,92,255,.5)}
-@media(max-width:720px){.nav-links a:not(.btn-nav){display:none}}
+/* no celular a nav inteira vira menu em tela cheia — ver bloco v19 */
 
 /* ===== hero ===== */
-.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding-top:68px;position:relative;perspective:900px}
+.hero{min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  padding-top:calc(var(--navh) + var(--seguro-topo));position:relative;perspective:900px}
 .hero-kicker{display:inline-flex;align-items:center;gap:10px;color:var(--volt-claro);
   font-size:.8rem;letter-spacing:.34em;text-transform:uppercase;margin-bottom:26px}
 .hero-kicker::before{content:"";width:34px;height:1px;background:var(--volt)}
 #palco{transform-style:preserve-3d;will-change:transform}
-.hero h1{font-size:clamp(3.5rem,13.5vw,12rem);font-weight:700;line-height:.92;
-  letter-spacing:-.02em;text-transform:uppercase;display:flex;flex-wrap:wrap}
+.hero h1{font-size:clamp(2.9rem,13.2vw,12rem);font-weight:700;line-height:.92;
+  letter-spacing:-.02em;text-transform:uppercase;display:flex;flex-wrap:nowrap;
+  user-select:none;-webkit-user-select:none}   /* nowrap: VELTRIX nunca quebra em duas linhas */
 .hero h1 i{font-style:normal;display:inline-block;transform:translateY(110%);opacity:0;
   background:linear-gradient(120deg,#fff 30%,var(--volt-claro) 75%,var(--volt) 100%);
   -webkit-background-clip:text;background-clip:text;color:transparent}
@@ -134,7 +140,7 @@ section{padding:110px 0;position:relative}
 h2{font-size:clamp(2rem,5.5vw,3.4rem);font-weight:700;letter-spacing:-.01em;line-height:1.08;margin-bottom:22px}
 h2 .serif{color:var(--volt-claro)}
 
-/* showreel de luz */
+/* mostruário de luz */
 .reel{border-radius:22px;border:1px solid var(--linha);overflow:hidden;position:relative;
   aspect-ratio:21/9;margin-top:52px;background:#0a0a10}
 .reel canvas{position:absolute;inset:0;width:100%;height:100%}
@@ -570,9 +576,9 @@ body.sem-scroll #fecharPainel{display:block}
 /* letras magnéticas: o texto reage à mão — palavras nunca quebram no meio */
 .pal{display:inline-block;white-space:nowrap}
 .lm{display:inline-block;transition:transform .34s cubic-bezier(.2,.9,.2,1),color .34s;will-change:transform}
-.lm:hover{transform:translateY(-8px) rotate(5deg) scale(1.12);color:var(--ouro)}
-.lm.onda{animation:ondaLetra .7s cubic-bezier(.2,.9,.2,1)}
-@keyframes ondaLetra{35%{transform:translateY(-12px) rotate(4deg);color:var(--ouro)}}
+.lm:hover{transform:translateY(-4px) scale(1.05);color:var(--ouro)}
+.lm.onda{animation:ondaLetra .6s cubic-bezier(.2,.9,.2,1)}
+@keyframes ondaLetra{35%{transform:translateY(-5px);color:var(--ouro)}}
 
 /* sublinhado vivo nas palavras-chave */
 .manifesto b,.resposta b{position:relative}
@@ -828,9 +834,11 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 #orbita{overflow:hidden}
 .orb-nota{color:var(--cinza);max-width:560px}
 .orb-nota b{color:var(--ouro)}
-.sistema-orbita{position:relative;width:min(600px,94vw);aspect-ratio:1;margin:50px auto 0;
-  --r1:112px;--r2:152px;--r3:192px;--r4:236px;--r5:282px}
-@media(max-width:640px){.sistema-orbita{--r1:66px;--r2:94px;--r3:120px;--r4:148px;--r5:174px}}
+/* raios em fração da largura real: os planetas correm SOBRE os anéis em qualquer tela,
+   e nunca são cortados pelo overflow da seção */
+.sistema-orbita{position:relative;--w:min(600px,92vw);width:var(--w);aspect-ratio:1;margin:50px auto 0;
+  --r1:calc(var(--w)*.13);--r2:calc(var(--w)*.18);--r3:calc(var(--w)*.23);
+  --r4:calc(var(--w)*.28);--r5:calc(var(--w)*.33)}
 .orbitas{position:absolute;inset:0;width:100%;height:100%}
 .orbitas circle{fill:none;stroke:rgba(255,255,255,.08);stroke-dasharray:2 6}
 .sol{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:122px;height:122px;border-radius:50%;
@@ -862,6 +870,194 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 @keyframes orb4{from{transform:translate(-50%,-50%) rotate(300deg) translateX(var(--r4)) rotate(-300deg)}
   to{transform:translate(-50%,-50%) rotate(660deg) translateX(var(--r4)) rotate(-660deg)}}
 
+/* ============================================================
+   v19 TELA PERFEITA — a experiência de celular sem uma concessão
+   ============================================================ */
+html{-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--navh) + 14px)}
+body{-webkit-tap-highlight-color:transparent}
+#telao .letras,.marquee,.num-gig,.forja-legenda,.slate,.hud-rec,.hud-tc,.sol,.cv-nome{
+  user-select:none;-webkit-user-select:none}
+img,svg,canvas{max-width:100%}
+
+/* ===== comando de bolso na nav (celular) ===== */
+.nav-mob{display:none;align-items:center;gap:8px}
+.mob-zap,#hamb{width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+  background:rgba(14,14,19,.6);border:1px solid var(--linha);color:var(--cinza);
+  cursor:pointer;font-family:inherit;transition:border-color .25s,color .25s,background .25s}
+.mob-zap{color:#5ce39a}
+.mob-zap:active{border-color:rgba(92,227,154,.6);background:rgba(15,61,39,.5)}
+#hamb{flex-direction:column;gap:5px;padding:0}
+#hamb i{display:block;width:19px;height:1.5px;background:currentColor;border-radius:2px;
+  transition:transform .35s cubic-bezier(.2,.9,.2,1),opacity .2s}
+#hamb[aria-expanded="true"]{color:var(--ouro);border-color:var(--ouro-linha)}
+#hamb[aria-expanded="true"] i:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+#hamb[aria-expanded="true"] i:nth-child(2){opacity:0}
+#hamb[aria-expanded="true"] i:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+@media(max-width:720px){
+  .nav-links{display:none}
+  .nav-mob{display:flex}
+}
+
+/* ===== MENU EM TELA CHEIA ===== */
+body.menu-on{overflow:hidden}
+#menu{position:fixed;inset:0;z-index:110;visibility:hidden;opacity:0;
+  padding:calc(var(--navh) + var(--seguro-topo) + 18px) 22px calc(26px + var(--seguro-base));
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+  background:radial-gradient(ellipse 80% 55% at 50% 8%,rgba(124,92,255,.16),transparent 62%),
+             radial-gradient(ellipse 60% 45% at 50% 100%,rgba(232,196,124,.07),transparent 60%),
+             rgba(5,5,8,.985);
+  backdrop-filter:blur(18px);transition:opacity .45s ease,visibility .45s ease}
+#menu.aberto{visibility:visible;opacity:1}
+.menu-in{max-width:520px;margin:0 auto;display:flex;flex-direction:column}
+.menu-selo{color:var(--ouro);letter-spacing:.34em;font-size:.6rem;text-transform:uppercase;
+  padding-bottom:18px;border-bottom:1px solid var(--linha)}
+.menu-links{display:flex;flex-direction:column}
+.menu-links a{position:relative;display:flex;flex-direction:column;text-decoration:none;color:var(--osso);
+  font-size:1.5rem;font-weight:500;letter-spacing:.01em;padding:20px 0 18px;border-bottom:1px solid var(--linha);
+  opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s cubic-bezier(.2,.9,.2,1)}
+.menu-links a s{position:absolute;right:2px;top:24px;text-decoration:none;
+  font-family:"Instrument Serif",serif;font-style:italic;color:var(--ouro);font-size:.9rem;letter-spacing:.2em;opacity:.75}
+.menu-links a small{color:var(--cinza);font-size:.8rem;font-weight:400;margin-top:5px;letter-spacing:.01em}
+.menu-links a:active{color:var(--ouro)}
+#menu.aberto .menu-links a{opacity:1;transform:none}
+#menu.aberto .menu-links a:nth-child(1){transition-delay:.06s}
+#menu.aberto .menu-links a:nth-child(2){transition-delay:.12s}
+#menu.aberto .menu-links a:nth-child(3){transition-delay:.18s}
+#menu.aberto .menu-links a:nth-child(4){transition-delay:.24s}
+.menu-zap{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:30px;min-height:56px;
+  border-radius:999px;background:var(--volt);color:#fff;text-decoration:none;font-weight:500;
+  letter-spacing:.04em;font-size:1.02rem;box-shadow:0 14px 44px rgba(124,92,255,.35);
+  opacity:0;transform:translateY(16px);transition:opacity .5s ease .3s,transform .5s cubic-bezier(.2,.9,.2,1) .3s}
+#menu.aberto .menu-zap{opacity:1;transform:none}
+.menu-ig{display:block;text-align:center;margin-top:20px;color:var(--ouro);text-decoration:none;
+  font-size:.9rem;letter-spacing:.16em;padding:12px 0;
+  opacity:0;transition:opacity .5s ease .38s}
+#menu.aberto .menu-ig{opacity:1}
+.menu-num{display:block;text-align:center;margin-top:4px;color:var(--cinza);font-size:.78rem;letter-spacing:.12em;
+  opacity:0;transition:opacity .5s ease .44s}
+#menu.aberto .menu-num{opacity:1}
+
+/* ===== HUD inferior: nunca se atropela, nunca cai na barra do iPhone ===== */
+#som{bottom:calc(16px + var(--seguro-base))}
+#farol{bottom:calc(52px + var(--seguro-base))}
+#fecharPainel{top:calc(14px + var(--seguro-topo));padding:13px 22px;min-height:46px}
+@media(max-width:720px){
+  #farol{bottom:calc(16px + var(--seguro-base));left:14px;max-width:calc(100vw - 150px)}
+  #som{right:14px;padding:11px 15px;font-size:.66rem;letter-spacing:.2em}
+  #fecharPainel{right:14px}
+}
+@media(max-width:560px){
+  #farol .f-txt{display:none}                 /* no celular fica só o número: "38%" */
+  #farol{font-size:.66rem;padding:10px 15px;letter-spacing:.16em}
+  #farol.total .f-txt{display:inline}
+}
+
+/* ===== PORTAL: cabe em qualquer tela, de 320px a 4K ===== */
+#portal{overflow-y:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+#portal::-webkit-scrollbar{display:none}   /* rola se precisar, mas sem barra na cena de abertura */
+.portal-in{margin:auto}
+/* os raios do projetor passam de absolutos a fixos: continuam iguais na tela, mas
+   deixam de criar rolagem dentro do portal (inset:-30% inflava a área rolável) */
+.raios{position:fixed}
+@media(max-width:560px){
+  #portal{padding:24px 18px calc(24px + var(--seguro-base))}
+  .selo-v{width:88px;height:88px;margin-bottom:22px}
+  .portal-in .assinado{font-size:.58rem;letter-spacing:.3em}
+  .portal-in p{font-size:.95rem;margin-bottom:32px}
+  .tick{font-size:.96rem;margin-bottom:30px}
+  /* o botão estourava a tela em 320–360px: agora respira */
+  #btn-entrar{padding:17px 30px;font-size:.78rem;letter-spacing:.18em}
+  .portal-sub{font-size:.58rem;letter-spacing:.22em;margin-top:16px}
+  .moldura{inset:10px}
+}
+@media(max-height:600px) and (orientation:landscape){
+  #portal{padding:18px 18px calc(18px + var(--seguro-base))}
+  .selo-v{width:62px;height:62px;margin-bottom:12px}
+  .portal-in .assinado{margin-bottom:8px}
+  .portal-in p{margin-bottom:20px}
+  .tick{margin-bottom:18px}
+  #cerimonia svg{width:min(56vh,40vw)}
+  .barra-cine{height:5vh}
+}
+
+/* ===== TIPOGRAFIA E RESPIRO NO CELULAR ===== */
+@media(max-width:520px){
+  .wrap{padding:0 20px}
+  .painel-in{padding:84px 20px calc(92px + var(--seguro-base))}
+  :root{--navh:62px}
+  .logo{font-size:.94rem;letter-spacing:.18em}
+  .hero-kicker{font-size:.68rem;letter-spacing:.28em;margin-bottom:20px}
+  .hero .frase{margin-top:26px}
+  .hero-ctas{margin-top:32px;gap:12px}
+  .btn{padding:15px 26px;font-size:.96rem}
+  .serv{padding:32px 24px}
+  .serv h3{font-size:1.32rem}
+  .marquee span{font-size:.86rem;letter-spacing:.22em}
+  .manifesto p.grande{line-height:1.42}
+  .num-chip{padding:20px 14px}
+  .met{padding:18px}
+  .met b{font-size:1.6rem}
+  .spec-tipo,.barras,.voz{padding:24px}
+  .zap-corpo{min-height:290px}
+  .foot{flex-direction:column;align-items:flex-start;gap:9px}
+  footer{padding:28px 0 calc(28px + var(--seguro-base))}
+  .cta-final{padding:96px 0}
+}
+@media(max-width:640px){
+  .reel{aspect-ratio:16/10;margin-top:34px}
+  .reel .selo .play{width:60px;height:60px;margin-bottom:12px}
+  .reel .selo p{font-size:.66rem;letter-spacing:.22em}
+  .painel .num-gig{right:20px}
+  .painel h3{padding-right:74px}          /* o número gigante não encosta no título */
+  .entregas li{font-size:.88rem;padding:13px 15px}
+}
+@media(max-width:440px){
+  .fluxo-zap{grid-template-columns:1fr}
+  .cofre{grid-template-columns:repeat(2,1fr);gap:10px}
+  .joia .j-nome{font-size:.6rem;letter-spacing:.18em;bottom:10px;left:11px}
+}
+
+/* ===== ALVOS DE TOQUE: nada menor que o dedo =====
+   vale pra quem não tem mouse E pra qualquer tela estreita */
+@media(hover:none),(max-width:720px){
+  .btn-nav{padding:12px 20px}
+  .planeta{padding:13px 16px;min-height:46px;font-size:.74rem}
+  .seguir{padding:11px 18px;min-height:42px}
+  #som{min-height:42px}
+  .link-mundo{padding:14px 0 12px}
+  .logo{display:flex;align-items:center;align-self:stretch}      /* o VELTRIX® ocupa a nav inteira */
+  .resposta .mini-cta{display:inline-block;padding:11px 0}        /* área de toque maior sem mexer no texto */
+  footer a,.zap-num a{display:inline-block;padding:10px 0}
+  .aba{padding:20px 22px}
+  .pergunta{padding-top:24px;padding-bottom:24px}
+  .lm:hover{transform:none;color:inherit}      /* sem hover fantasma preso no toque */
+  .grao{animation:none;opacity:.045}           /* nada de repintar a tela inteira 5x/s */
+}
+@media(max-width:560px){
+  .planeta{font-size:.68rem;padding:11px 13px;gap:5px;letter-spacing:.06em}
+  .sol{width:88px;height:88px;font-size:.62rem}
+}
+
+/* ===== DEITADO NO CELULAR (paisagem curta) ===== */
+@media(orientation:landscape) and (max-height:560px){
+  .hero{min-height:auto;padding:calc(var(--navh) + var(--seguro-topo) + 30px) 0 46px}
+  .hero h1{font-size:clamp(2.2rem,10vh,4.4rem)}
+  .hero .frase{margin-top:16px;font-size:.95rem}
+  .hero-ctas{margin-top:22px}
+  .hero-scroll{display:none}
+  section{padding:64px 0}
+  .menu-links a{padding:14px 0 12px;font-size:1.25rem}
+  .menu-links a small{display:none}
+  .menu-zap{margin-top:20px;min-height:50px}
+}
+
+/* ===== TELAS GRANDES: o cinema também respira em 4K ===== */
+@media(min-width:1700px){
+  .wrap{max-width:1440px}
+  .painel-in{max-width:1440px}
+  .hero .frase{max-width:720px;font-size:1.6rem}
+}
+
 @media (prefers-reduced-motion:reduce){
   *{animation:none!important;transition:none!important}
   #po{display:none}.lm:hover{transform:none}
@@ -875,6 +1071,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   .p-rev{opacity:1!important;transform:none!important;filter:none!important}
   .cor i{transform:scaleX(var(--s,1))!important}
   .painel{clip-path:none!important}
+  .menu-links a,.menu-zap,.menu-ig,.menu-num{opacity:1!important;transform:none!important}
 }
 </style>
 </head>
@@ -883,7 +1080,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 <div id="telao">
   <div class="letras"><i>V</i><i>E</i><i>L</i><i>T</i><i>R</i><i>I</i><i>X</i></div>
   <div class="risco"></div>
-  <div class="sub">Premium Branding Agency</div>
+  <div class="sub">Estúdio de Marcas Premium</div>
 </div>
 
 <div id="portal" role="dialog" aria-label="Boas-vindas ao estúdio Veltrix">
@@ -902,7 +1099,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
         <path class="vv" d="M 38 42 L 60 84 L 82 42"/>
       </svg>
     </div>
-    <span class="assinado">Veltrix · Premium Branding</span>
+    <span class="assinado">Veltrix · Marcas Premium</span>
     <h2>Bem-vindo ao <span class="serif">estúdio.</span></h2>
     <p class="tick">Aqui nascem marcas que <b id="tickb">hipnotizam.</b></p>
     <button id="btn-entrar">Entrar no estúdio</button>
@@ -932,12 +1129,9 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 <canvas id="ceu"></canvas>
 <div class="grao"></div>
 <div id="dot"></div><div id="anel"></div>
-<div class="barra-cine topo"></div><div class="barra-cine base"></div>
 <div class="vinheta"></div>
 <div class="leak" id="leak"></div>
-<div class="hud-rec"><i></i>REC</div>
-<div class="hud-tc" id="timecode">VELTRIX · 00:00:00:00</div>
-<button id="som" aria-label="Ligar trilha ambiente">SOM · OFF</button>
+<button id="som" aria-label="Ligar trilha ambiente">SOM · DESLIGADO</button>
 
 <nav>
   <div class="wrap nav-in">
@@ -951,17 +1145,40 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       </a>
       <a class="btn-nav" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Quero%20uma%20marca%20premium%20%E2%80%94%20vamos%20conversar%3F" target="_blank" rel="noopener">Iniciar projeto</a>
     </div>
+    <!-- comando de bolso: só aparece no celular -->
+    <div class="nav-mob">
+      <a class="mob-zap" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Quero%20uma%20marca%20premium%20%E2%80%94%20vamos%20conversar%3F" target="_blank" rel="noopener" aria-label="Chamar a Veltrix no WhatsApp">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.6-1.2 1.2-1.7 1.2-.5.1-1 .1-1.8-.2-1-.3-2.4-1-3.7-2.3-1.4-1.4-2.2-2.9-2.4-3.4-.3-.7-.3-1.3-.2-1.7.1-.5.6-1.4 1.2-1.6.3-.1.6 0 .8.1.2.1.3.4.4.6l.5 1.2c.1.2.1.4 0 .6l-.4.6c-.1.2-.2.3 0 .6.3.5.8 1.1 1.3 1.5.6.5 1.2.8 1.5.9.2.1.4.1.6-.1l.7-.8c.2-.2.4-.2.6-.1l1.4.7c.2.1.4.2.5.4.1.2 0 .9-.1 1.4Z"/></svg>
+      </a>
+      <button id="hamb" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu"><i></i><i></i><i></i></button>
+    </div>
   </div>
 </nav>
 
+<!-- ===== MENU DE CELULAR: a sala de comando em tela cheia ===== -->
+<div id="menu" role="dialog" aria-modal="true" aria-label="Menu de navegação" aria-hidden="true">
+  <div class="menu-in">
+    <span class="menu-selo">Veltrix · Marcas Premium</span>
+    <nav class="menu-links" aria-label="Seções">
+      <a href="#servicos"><s>01</s>Serviços<small>Os cinco ofícios, um por mundo</small></a>
+      <a href="#estudio"><s>02</s>Estúdio<small>O manifesto da casa</small></a>
+      <a href="#processo"><s>03</s>Processo<small>Da primeira conversa ao lançamento</small></a>
+      <a href="#duvidas"><s>04</s>Dúvidas<small>Respostas diretas, sem juridiquês</small></a>
+    </nav>
+    <a class="menu-zap" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Quero%20uma%20marca%20premium%20%E2%80%94%20vamos%20conversar%3F" target="_blank" rel="noopener">💬 Chamar no WhatsApp</a>
+    <a class="menu-ig" href="https://www.instagram.com/veltrix__agency" target="_blank" rel="noopener">@veltrix__agency ↗</a>
+    <span class="menu-num">+55 (35) 91019-0166</span>
+  </div>
+</div>
+
 <header class="hero" id="top">
   <div class="wrap" id="palco">
-    <span class="hero-kicker">Premium Branding Agency</span>
+    <span class="hero-kicker">Estúdio de Marcas Premium</span>
     <div class="palavra-viva">
       <h1 aria-label="VELTRIX"><i>V</i><i>E</i><i>L</i><i>T</i><i>R</i><i>I</i><i>X</i></h1>
       <canvas id="txparticulas" aria-hidden="true"></canvas>
     </div>
-    <p class="frase">Construímos marcas que parecem <em>inevitáveis</em> — identidades com peso, presença e intenção em cada pixel. <b class="dica-particulas">Passa o mouse no nome.</b></p>
+    <p class="frase">Construímos marcas que parecem <em>inevitáveis</em> — identidades com peso, presença e intenção em cada pixel.</p>
     <div class="hero-ctas">
       <a class="btn btn-solid magnet" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Quero%20uma%20marca%20premium%20%E2%80%94%20vamos%20conversar%3F" target="_blank" rel="noopener">Chamar no WhatsApp</a>
       <a class="btn btn-ghost magnet" href="#servicos">Ver o que fazemos</a>
@@ -973,20 +1190,20 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 
 <div class="marquee" aria-hidden="true">
   <div class="marquee-trilho">
-    <span>Logo Design <b>◆</b> Brand Identity <b>◆</b> Social Media <b>◆</b> Criação de Sites <b>◆</b> Automação de WhatsApp <b>◆</b>&nbsp;</span>
-    <span>Logo Design <b>◆</b> Brand Identity <b>◆</b> Social Media <b>◆</b> Criação de Sites <b>◆</b> Automação de WhatsApp <b>◆</b>&nbsp;</span>
+    <span>Criação de Logo <b>◆</b> Identidade de Marca <b>◆</b> Redes Sociais <b>◆</b> Criação de Sites <b>◆</b> Automação de WhatsApp <b>◆</b>&nbsp;</span>
+    <span>Criação de Logo <b>◆</b> Identidade de Marca <b>◆</b> Redes Sociais <b>◆</b> Criação de Sites <b>◆</b> Automação de WhatsApp <b>◆</b>&nbsp;</span>
   </div>
 </div>
 
 <section>
   <div class="wrap">
-    <span class="rotulo rev">Showreel</span>
+    <span class="rotulo rev">Mostruário</span>
     <h2 class="rev">A marca em <span class="serif">movimento.</span></h2>
     <div class="reel rev" id="reel">
       <canvas id="ondas"></canvas>
       <div class="selo">
         <div class="play"></div>
-        <p>reel 2026 — em produção</p>
+        <p>mostruário 2026 — em produção</p>
       </div>
     </div>
   </div>
@@ -997,20 +1214,20 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
     <span class="rotulo rev">O que fazemos</span>
     <h2 class="rev">Cinco ofícios. <span class="serif">Cinco mundos.</span></h2>
     <div class="abas-rail rev">
-      <button class="aba" data-p="p-logo"><s>Mundo 01</s>Logo Design<small>O cofre de símbolos — 6 conceitos pra sentir o padrão.</small></button>
-      <button class="aba" data-p="p-id"><s>Mundo 02</s>Brand Identity<small>Tipografia, cor e voz — o sistema que vira reputação.</small></button>
-      <button class="aba" data-p="p-social"><s>Mundo 03</s>Social Media<small>O feed premium e os números que ele move.</small></button>
+      <button class="aba" data-p="p-logo"><s>Mundo 01</s>Criação de Logo<small>O cofre de símbolos — 6 conceitos pra sentir o padrão.</small></button>
+      <button class="aba" data-p="p-id"><s>Mundo 02</s>Identidade de Marca<small>Tipografia, cor e voz — o sistema que vira reputação.</small></button>
+      <button class="aba" data-p="p-social"><s>Mundo 03</s>Redes Sociais<small>O feed premium e os números que ele move.</small></button>
       <button class="aba" data-p="p-site"><s>Mundo 04</s>Criação de Sites<small>O palco digital — você está dentro de um agora.</small></button>
       <button class="aba" data-p="p-zap"><s>Mundo 05</s>Automação de WhatsApp<small>Atendimento com IA que responde sozinho, 24/7.</small></button>
     </div>
   </div>
 
-  <!-- ===== 01 · LOGO DESIGN — A FORJA DO SÍMBOLO ===== -->
+  <!-- ===== 01 · CRIAÇÃO DE LOGO — A FORJA DO SÍMBOLO ===== -->
   <div class="oficio">
     <div class="wrap ofi-grid">
       <div class="ofi-texto rev">
         <span class="num">— 01</span>
-        <h3>Logo Design</h3>
+        <h3>Criação de Logo</h3>
         <p>O símbolo que carrega a marca inteira. Nasce na <b>malha de construção</b>, é desenhado à exaustão e reduzido ao essencial — funciona do favicon ao outdoor.</p>
         <div class="tags"><i>Símbolo</i><i>Tipografia</i><i>Variações</i><i>Manual de uso</i></div>
         <button class="link-mundo" data-p="p-logo">Entrar no mundo 01 →</button>
@@ -1031,20 +1248,20 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
             <path class="vtraco" d="M 78 84 L 150 222 L 222 84" fill="none"/>
             <path class="vtraco v2" d="M 108 84 L 150 165 L 192 84" fill="none"/>
           </svg>
-          <div class="forja-legenda"><span>grid</span><span>traço</span><span>símbolo</span></div>
+          <div class="forja-legenda"><span>malha</span><span>traço</span><span>símbolo</span></div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- ===== 02 · BRAND IDENTITY — O SISTEMA VIVO ===== -->
+  <!-- ===== 02 · IDENTIDADE DE MARCA — O SISTEMA VIVO ===== -->
   <div class="oficio ofi-invert">
     <div class="wrap ofi-grid">
       <div class="ofi-texto rev">
         <span class="num">— 02</span>
-        <h3>Brand Identity</h3>
+        <h3>Identidade de Marca</h3>
         <p>O sistema completo: cores, tipos, voz e regras. Repara no cartão — <b>a mesma estrutura, três almas diferentes</b>. Isso é a diferença entre ter um logo e ser uma marca.</p>
-        <div class="tags"><i>Identidade visual</i><i>Brandbook</i><i>Papelaria</i><i>Tom de voz</i></div>
+        <div class="tags"><i>Identidade visual</i><i>Manual da marca</i><i>Papelaria</i><i>Tom de voz</i></div>
         <button class="link-mundo" data-p="p-id">Entrar no mundo 02 →</button>
       </div>
       <div class="ofi-demo rev">
@@ -1062,14 +1279,14 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
     </div>
   </div>
 
-  <!-- ===== 03 · SOCIAL MEDIA — O FEED PREMIUM ===== -->
+  <!-- ===== 03 · REDES SOCIAIS — O FEED PREMIUM ===== -->
   <div class="oficio">
     <div class="wrap ofi-grid">
       <div class="ofi-texto rev">
         <span class="num">— 03</span>
-        <h3>Social Media</h3>
-        <p>A marca viva no feed: direção de arte, templates e sistema de conteúdo. O padrão premium <b>em cada post</b> — e o algoritmo percebe.</p>
-        <div class="tags"><i>Direção de arte</i><i>Templates</i><i>Kit de conteúdo</i></div>
+        <h3>Redes Sociais</h3>
+        <p>A marca viva no feed: direção de arte, modelos prontos e sistema de conteúdo. O padrão premium <b>em cada post</b> — e o algoritmo percebe.</p>
+        <div class="tags"><i>Direção de arte</i><i>Modelos prontos</i><i>Kit de conteúdo</i></div>
         <button class="link-mundo" data-p="p-social">Entrar no mundo 03 →</button>
       </div>
       <div class="ofi-demo rev">
@@ -1079,10 +1296,10 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
             <span class="story"></span><b>veltrix.studio</b>
           </div>
           <div class="feed" id="feed">
-            <div class="post p1"><span>DROP 001</span></div>
+            <div class="post p1"><span>LANÇAMENTO 01</span></div>
             <div class="post p2"><span class="serif">a marca é o detalhe</span></div>
             <div class="post p3"><span>PADRÃO<br>PREMIUM</span></div>
-            <div class="post p1"><span>DROP 001</span></div>
+            <div class="post p1"><span>LANÇAMENTO 01</span></div>
             <div class="post p2"><span class="serif">a marca é o detalhe</span></div>
             <div class="post p3"><span>PADRÃO<br>PREMIUM</span></div>
           </div>
@@ -1098,8 +1315,8 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       <div class="ofi-texto rev">
         <span class="num">— 04</span>
         <h3>Criação de Sites</h3>
-        <p>A loja que nunca fecha. Landing pages <b>cinematográficas</b> que contam a história da marca e conduzem o visitante pelo caminho exato até o botão. <b>Você está dentro de uma agora.</b></p>
-        <div class="tags"><i>Landing premium</i><i>Copy</i><i>Animações</i><i>Domínio + publicação</i></div>
+        <p>A loja que nunca fecha. Páginas <b>cinematográficas</b> que contam a história da marca e conduzem o visitante pelo caminho exato até o botão. <b>Você está dentro de uma agora.</b></p>
+        <div class="tags"><i>Página premium</i><i>Texto de venda</i><i>Animações</i><i>Domínio + publicação</i></div>
         <button class="link-mundo" data-p="p-site">Entrar no mundo 04 →</button>
       </div>
       <div class="ofi-demo rev">
@@ -1131,7 +1348,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       </div>
       <div class="ofi-demo rev">
         <div class="zapchat">
-          <div class="zap-topo"><span class="zap-av">👗</span><div><b>Voga Urbana</b><small>online agora · atendida por IA Veltrix</small></div></div>
+          <div class="zap-topo"><span class="zap-av">👗</span><div><b>Voga Urbana</b><small>disponível agora · atendida por IA Veltrix</small></div></div>
           <div class="zap-corpo">
             <div class="balao cli b1">Vi o vestido azul no site! Tem no M? 😍</div>
             <div class="balao bot b2"><span class="selo-ia">✦ IA da loja</span>Tem sim! Restam 2 no M. Quer que eu separe um pra você?</div>
@@ -1152,7 +1369,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       <div class="num-chip rev"><b class="contador" data-fim="5">0</b><span>ofícios sob o mesmo teto</span></div>
       <div class="num-chip rev"><b class="contador" data-fim="6">0</b><span>conceitos no cofre</span></div>
       <div class="num-chip rev"><b class="contador" data-fim="24" data-suf="h">0h</b><span>pra devolver proposta</span></div>
-      <div class="num-chip rev"><b class="contador" data-fim="100" data-suf="%">0%</b><span>feito à mão, zero template</span></div>
+      <div class="num-chip rev"><b class="contador" data-fim="100" data-suf="%">0%</b><span>feito à mão, zero modelo pronto</span></div>
     </div>
   </div>
 </section>
@@ -1168,12 +1385,12 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 <section id="processo">
   <div class="wrap">
     <span class="rotulo rev">Como trabalhamos</span>
-    <h2 class="rev">Do briefing ao lançamento, <span class="serif">sem achismo.</span></h2>
+    <h2 class="rev">Da primeira conversa ao lançamento, <span class="serif">sem achismo.</span></h2>
     <div class="passos">
       <div class="passo rev"><span class="n">i.</span><h4>Imersão</h4><p>Entendemos o negócio, o público e a guerra que a marca vai travar. Nada se desenha antes disso.</p></div>
       <div class="passo rev"><span class="n">ii.</span><h4>Conceito</h4><p>A grande ideia: o território visual e verbal que torna a marca impossível de confundir.</p></div>
       <div class="passo rev"><span class="n">iii.</span><h4>Sistema</h4><p>Logo, paleta, tipografia, texturas e regras — tudo documentado pra escalar sem quebrar.</p></div>
-      <div class="passo rev"><span class="n">iv.</span><h4>Lançamento</h4><p>Entrega com manual, templates e acompanhamento do primeiro voo da marca no mundo.</p></div>
+      <div class="passo rev"><span class="n">iv.</span><h4>Lançamento</h4><p>Entrega com manual, modelos prontos e acompanhamento do primeiro voo da marca no mundo.</p></div>
     </div>
   </div>
 </section>
@@ -1183,9 +1400,9 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
     <span class="rotulo rev">Explorações do estúdio</span>
     <h2 class="rev">O padrão Veltrix <span class="serif">em ação.</span></h2>
     <div class="tiles">
-      <div class="tile t1 rev"><span class="marca">NOKTA</span><span class="tipo">Conceito · Tech</span></div>
+      <div class="tile t1 rev"><span class="marca">NOKTA</span><span class="tipo">Conceito · Tecnologia</span></div>
       <div class="tile t2 rev"><span class="marca">Alva Café</span><span class="tipo">Conceito · Gastronomia</span></div>
-      <div class="tile t3 rev"><span class="marca">RUÍNA</span><span class="tipo">Conceito · Streetwear</span></div>
+      <div class="tile t3 rev"><span class="marca">RUÍNA</span><span class="tipo">Conceito · Moda urbana</span></div>
     </div>
     <p class="tiles-nota rev">* Explorações internas do estúdio. O próximo case com nome real pode ser o seu.</p>
   </div>
@@ -1195,19 +1412,19 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   <div class="wrap">
     <span class="rotulo rev">Tudo em um só estúdio</span>
     <h2 class="rev">Cuidamos do <span class="serif">perfil inteiro.</span></h2>
-    <p class="orb-nota rev">Símbolo, sistema, feed, site e atendimento — <b>cinco ofícios girando em volta de uma coisa só: a sua marca.</b> Toca em qualquer planeta pra entrar no mundo dele.</p>
+    <p class="orb-nota rev">Símbolo, sistema, feed, site e atendimento — <b>cinco ofícios girando em volta de uma coisa só: a sua marca.</b></p>
     <div class="sistema-orbita rev">
       <svg class="orbitas" viewBox="0 0 600 600" aria-hidden="true">
-        <circle cx="300" cy="300" r="120"/>
-        <circle cx="300" cy="300" r="165"/>
-        <circle cx="300" cy="300" r="210"/>
-        <circle cx="300" cy="300" r="258"/>
-        <circle cx="300" cy="300" r="284"/>
+        <circle cx="300" cy="300" r="78"/>
+        <circle cx="300" cy="300" r="108"/>
+        <circle cx="300" cy="300" r="138"/>
+        <circle cx="300" cy="300" r="168"/>
+        <circle cx="300" cy="300" r="198"/>
       </svg>
       <div class="sol">SUA<br>MARCA</div>
-      <button class="planeta pl1" data-p="p-logo"><i>◆</i>Logo Design</button>
+      <button class="planeta pl1" data-p="p-logo"><i>◆</i>Logo</button>
       <button class="planeta pl2" data-p="p-id"><i>◆</i>Identidade</button>
-      <button class="planeta pl3" data-p="p-social"><i>◆</i>Social Media</button>
+      <button class="planeta pl3" data-p="p-social"><i>◆</i>Redes Sociais</button>
       <button class="planeta pl4" data-p="p-site"><i>◆</i>Site</button>
       <button class="planeta pl5" data-p="p-zap"><i>◆</i>WhatsApp IA</button>
     </div>
@@ -1218,10 +1435,10 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   <div class="wrap">
     <span class="rotulo rev">Dúvidas de quem chega agora</span>
     <h2 class="rev">Perguntas que <span class="serif">todo mundo</span> faz.</h2>
-    <p class="faq-nota rev">Toca nas perguntas — as respostas são diretas. <b>Sem enrolação, sem juridiquês.</b></p>
+    <p class="faq-nota rev">Respostas diretas. <b>Sem enrolação, sem juridiquês.</b></p>
     <div class="faq rev">
       <div class="duvida">
-        <button class="pergunta">O que é <span class="serif">logo design</span>, afinal?</button>
+        <button class="pergunta">O que é <span class="serif">criação de logo</span>, afinal?</button>
         <div class="resposta"><div><p>É o desenho do símbolo que vai te representar <b>em todo lugar onde você não está</b> — no perfil, na fachada, na etiqueta, no boca a boca. A primeira impressão de uma marca acontece <b>em menos de um segundo</b>, antes de qualquer palavra ser lida. Um símbolo amador cobra esse preço em silêncio: a pessoa sente que é "pequeno" e nem sabe dizer por quê. <span class="ouro">Um símbolo certo faz parecer empresa de verdade antes da primeira conversa.</span></p></div></div>
       </div>
       <div class="duvida">
@@ -1229,7 +1446,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
         <div class="resposta"><div><p>O logo é o rosto. A identidade é <b>o jeito de andar, de falar e de se vestir</b>: cores, tipografia, texturas e tom de voz operando juntos. Sem esse sistema, cada post parece de uma empresa diferente — e o cliente <b>sente a bagunça mesmo sem saber explicar</b>. Com o sistema, a marca é reconhecida até quando o logo nem aparece. <span class="ouro">Isso é o que separa "ter um logo" de "ser uma marca".</span></p></div></div>
       </div>
       <div class="duvida">
-        <button class="pergunta">O que muda com uma <span class="serif">social media</span> premium?</button>
+        <button class="pergunta">O que muda com <span class="serif">redes sociais</span> premium?</button>
         <div class="resposta"><div><p>O feed é a vitrine que <b>nunca fecha</b> — é onde o cliente decide se você é confiável às 2h da manhã. Com direção de arte e sistema de conteúdo, <b>cada post parece campanha, não improviso</b>. Padrão repetido vira reputação; improviso repetido vira ruído. <span class="ouro">E reputação é o que permite cobrar mais pelo mesmo serviço.</span></p></div></div>
       </div>
       <div class="duvida">
@@ -1246,7 +1463,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       </div>
       <div class="duvida">
         <button class="pergunta">Vocês criam <span class="serif">o site também?</span></button>
-        <div class="resposta"><div><p>Sim — e <b>você está dentro de um agora</b>. Este site inteiro, com as explosões, os mundos e as partículas, foi feito pela Veltrix: é o nosso cartão de visitas. O seu recebe o mesmo tratamento: <b>landing premium com animações cinematográficas</b>, copy que conduz ao clique, domínio próprio e rastreio de campanha. <span class="ouro">Imagina o teu cliente sentindo isso na TUA marca.</span></p></div></div>
+        <div class="resposta"><div><p>Sim — e <b>você está dentro de um agora</b>. Este site inteiro, com as explosões, os mundos e as partículas, foi feito pela Veltrix: é o nosso cartão de visitas. O seu recebe o mesmo tratamento: <b>página premium com animações cinematográficas</b>, copy que conduz ao clique, domínio próprio e rastreio de campanha. <span class="ouro">Imagina o teu cliente sentindo isso na TUA marca.</span></p></div></div>
       </div>
       <div class="duvida">
         <button class="pergunta">Por que a Veltrix e não <span class="serif">uma IA ou um app de logo?</span></button>
@@ -1256,7 +1473,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   </div>
 </section>
 
-<a id="farol" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Vi%20o%20est%C3%BAdio%20inteiro%20%E2%80%94%20quero%20uma%20marca%20premium." target="_blank" rel="noopener">Você viu <b id="farolp">0%</b> do estúdio</a>
+<a id="farol" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Vi%20o%20est%C3%BAdio%20inteiro%20%E2%80%94%20quero%20uma%20marca%20premium." target="_blank" rel="noopener"><span class="f-txt">Você viu </span><b id="farolp">0%</b><span class="f-txt"> do estúdio</span></a>
 
 <section class="cta-final">
   <canvas id="warp" aria-hidden="true"></canvas>
@@ -1271,13 +1488,13 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 
 <button id="fecharPainel" aria-label="Fechar e voltar">✕ &nbsp;VOLTAR</button>
 
-<!-- ===== MUNDO 01 · LOGO DESIGN ===== -->
-<div class="painel" id="p-logo" role="dialog" aria-label="Mundo Logo Design">
+<!-- ===== MUNDO 01 · CRIAÇÃO DE LOGO ===== -->
+<div class="painel" id="p-logo" role="dialog" aria-label="Mundo Criação de Logo">
   <div class="painel-in">
     <span class="num-gig" aria-hidden="true">01</span>
     <span class="rotulo p-rev">Mundo 01</span>
-    <h3 class="p-rev" style="--d:.08s">Logo <span class="serif">Design.</span></h3>
-    <p class="lead p-rev" style="--d:.16s">O símbolo é o soldado que vai sozinho pra guerra: aparece no favicon, na fachada, no perfil, na etiqueta. Abaixo, <b>seis conceitos do cofre Veltrix</b> — toca em cada um: eles reagem.</p>
+    <h3 class="p-rev" style="--d:.08s">Criação de <span class="serif">Logo.</span></h3>
+    <p class="lead p-rev" style="--d:.16s">O símbolo é o soldado que vai sozinho pra guerra: aparece no favicon, na fachada, no perfil, na etiqueta. Abaixo, <b>seis conceitos autorais do cofre Veltrix</b>.</p>
     <div class="cofre">
       <div class="joia t3d p-rev" style="--d:.2s">
         <svg viewBox="0 0 100 100" aria-label="Logo conceito Aurum">
@@ -1343,7 +1560,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
           </g>
           <text x="50" y="93" text-anchor="middle" font-family="Space Grotesk,sans-serif" font-weight="700" font-size="9" fill="#c9b8ff" letter-spacing="6">NOKTA</text>
         </svg>
-        <span class="j-nome">Design & Tech</span><i class="j-brilho"></i>
+        <span class="j-nome">Design e Tecnologia</span><i class="j-brilho"></i>
       </div>
     </div>
     <p class="cofre-nota p-rev" style="--d:.55s">* Conceitos autorais do estúdio, desenhados em vetor puro — <b>nítidos em qualquer tamanho, do favicon ao outdoor</b>. O sétimo pode ser o seu.</p>
@@ -1360,12 +1577,12 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   </div>
 </div>
 
-<!-- ===== MUNDO 02 · BRAND IDENTITY ===== -->
-<div class="painel" id="p-id" role="dialog" aria-label="Mundo Brand Identity">
+<!-- ===== MUNDO 02 · IDENTIDADE DE MARCA ===== -->
+<div class="painel" id="p-id" role="dialog" aria-label="Mundo Identidade de Marca">
   <div class="painel-in">
     <span class="num-gig" aria-hidden="true">02</span>
     <span class="rotulo p-rev">Mundo 02</span>
-    <h3 class="p-rev" style="--d:.08s">Brand <span class="serif">Identity.</span></h3>
+    <h3 class="p-rev" style="--d:.08s">Identidade de <span class="serif">Marca.</span></h3>
     <p class="lead p-rev" style="--d:.16s">Logo é o rosto; identidade é o <b>corpo inteiro</b> — tipografia, cor, textura e voz operando como um sistema. É isso que faz a marca ser reconhecida até sem o logo na tela.</p>
     <div class="specimen">
       <div class="spec-tipo t3d p-rev" style="--d:.24s">
@@ -1384,7 +1601,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       <p class="errada">“Somos uma empresa focada em soluções criativas e inovadoras.” — a voz de todo mundo</p>
     </div>
     <ul class="entregas p-rev" style="--d:.48s">
-      <li>Brandbook completo (regras + exemplos)</li>
+      <li>Manual da marca completo (regras + exemplos)</li>
       <li>Paleta com códigos e proporções de uso</li>
       <li>Par tipográfico licenciável + hierarquia</li>
       <li>Tom de voz: como a marca fala e como jamais fala</li>
@@ -1396,13 +1613,13 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
   </div>
 </div>
 
-<!-- ===== MUNDO 03 · SOCIAL MEDIA ===== -->
-<div class="painel" id="p-social" role="dialog" aria-label="Mundo Social Media">
+<!-- ===== MUNDO 03 · REDES SOCIAIS ===== -->
+<div class="painel" id="p-social" role="dialog" aria-label="Mundo Redes Sociais">
   <div class="painel-in">
     <span class="num-gig" aria-hidden="true">03</span>
     <span class="rotulo p-rev">Mundo 03</span>
-    <h3 class="p-rev" style="--d:.08s">Social <span class="serif">Media.</span></h3>
-    <p class="lead p-rev" style="--d:.16s">O feed é a vitrine que nunca fecha. Direção de arte com sistema — <b>templates, grid e ritmo de conteúdo</b> — pra cada post parecer campanha, não improviso.</p>
+    <h3 class="p-rev" style="--d:.08s">Redes <span class="serif">Sociais.</span></h3>
+    <p class="lead p-rev" style="--d:.16s">O feed é a vitrine que nunca fecha. Direção de arte com sistema — <b>modelos, malha e ritmo de conteúdo</b> — pra cada post parecer campanha, não improviso.</p>
     <div class="social-demo">
       <div class="perfil-ig t3d p-rev" style="--d:.2s">
         <div class="ig-topo">
@@ -1412,7 +1629,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
         </div>
         <div class="ig-stats">
           <div><b id="segNum">812</b><span>seguidores</span></div>
-          <div><b>127</b><span>posts</span></div>
+          <div><b>127</b><span>publicações</span></div>
           <div><b id="likesMedia">1.2k</b><span>curtidas</span></div>
         </div>
         <div class="ig-grid"><i></i><i></i><i></i><i></i><i></i><i></i></div>
@@ -1434,12 +1651,12 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       <div class="metricas">
         <div class="met p-rev" style="--d:.3s"><b data-alvo="2.4" data-sufixo="x">0x</b><span>Alcance médio</span><small>com direção de arte</small></div>
         <div class="met p-rev" style="--d:.38s"><b data-alvo="180" data-sufixo="%">0%</b><span>Mais salvamentos</span><small>conteúdo com sistema</small></div>
-        <div class="met p-rev" style="--d:.46s"><b data-alvo="3" data-sufixo="x">0x</b><span>Resposta em DM</span><small>quando a marca tem voz</small></div>
+        <div class="met p-rev" style="--d:.46s"><b data-alvo="3" data-sufixo="x">0x</b><span>Resposta nas mensagens</span><small>quando a marca tem voz</small></div>
       </div>
     </div>
     <ul class="entregas p-rev" style="--d:.52s">
-      <li>Direção de arte do feed (grid + ritmo)</li>
-      <li>Pack de templates editáveis</li>
+      <li>Direção de arte do feed (malha + ritmo)</li>
+      <li>Pacote de modelos editáveis</li>
       <li>Capas de destaque + assinatura visual</li>
       <li>Kit de lançamento pro primeiro mês</li>
     </ul>
@@ -1470,12 +1687,12 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
       </div>
     </div>
     <ul class="entregas p-rev" style="--d:.4s">
-      <li>Landing page premium — no nível desta</li>
-      <li>Copy que conduz do topo ao botão</li>
+      <li>Página de vendas premium — no nível desta</li>
+      <li>Texto que conduz do topo ao botão</li>
       <li>Animações cinematográficas sob medida</li>
       <li>Domínio próprio + publicação + SSL</li>
       <li>Rápido no celular (nota alta de verdade)</li>
-      <li>Rastreio de campanha (Ads + mapa de calor)</li>
+      <li>Rastreio de campanha (Anúncios + mapa de calor)</li>
     </ul>
     <div class="painel-cta p-rev" style="--d:.5s">
       <a class="btn btn-solid magnet" href="https://wa.me/5535910190166?text=Ol%C3%A1%2C%20Veltrix!%20Quero%20um%20site%20cinematogr%C3%A1fico%20pra%20minha%20marca." target="_blank" rel="noopener">Quero meu palco →</a>
@@ -1499,7 +1716,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
     </div>
     <div class="social-demo" style="margin-top:44px">
       <div class="zapchat p-rev" style="--d:.5s">
-        <div class="zap-topo"><span class="zap-av">👗</span><div><b>Voga Urbana</b><small>online agora · atendida por IA Veltrix</small></div></div>
+        <div class="zap-topo"><span class="zap-av">👗</span><div><b>Voga Urbana</b><small>disponível agora · atendida por IA Veltrix</small></div></div>
         <div class="zap-corpo">
           <div class="balao cli b1">Vocês têm entrega hoje?</div>
           <div class="balao bot b2"><span class="selo-ia">✦ IA da loja</span>Temos! Pedidos até 15h chegam hoje ainda. Quer ver o catálogo?</div>
@@ -1527,7 +1744,7 @@ body.pronto .hero .wrap{animation:chega 2.8s cubic-bezier(.22,.7,.25,1) .5s both
 
 <footer>
   <div class="wrap foot">
-    <span>© 2026 VELTRIX® — Premium Branding Agency</span>
+    <span>© 2026 VELTRIX® — Estúdio de Marcas Premium</span>
     <a href="https://www.instagram.com/veltrix__agency" target="_blank" rel="noopener">Instagram @veltrix__agency</a>
     <a href="https://wa.me/5535910190166" target="_blank" rel="noopener">WhatsApp (35) 91019-0166</a>
   </div>
@@ -1539,12 +1756,76 @@ addEventListener('load', () => {
   setTimeout(() => document.getElementById('telao').classList.add('vai'), 1000);
 });
 
+/* ============================================================
+   v19 MOTOR DE TELA — mede o aparelho e só gasta o que precisa
+   ============================================================ */
+const TOQUE_SO = !matchMedia('(hover:hover)').matches;
+const TELA_PEQ = innerWidth < 760 || TOQUE_SO;
+const MODESTO = TELA_PEQ || (navigator.hardwareConcurrency || 4) <= 4;
+/* DPR 2 num celular 3x = 3x mais pixels por quadro sem ganho visível: 1.5 basta */
+const DPRg = Math.min(devicePixelRatio || 1, TELA_PEQ ? 1.5 : 2);
+let PAUSA = document.hidden;
+document.addEventListener('visibilitychange', () => { PAUSA = document.hidden; });
+
+/* quem está fora do quadro não gasta bateria */
+function noQuadro(el, margem = '180px'){
+  const est = { viz: true };
+  if (el) new IntersectionObserver(es => { est.viz = es[0].isIntersecting; },
+    { rootMargin: margem }).observe(el);
+  return () => est.viz && !PAUSA;
+}
+
+/* um só rAF pra tudo que reage ao scroll (antes: 5 handlers concorrentes por evento) */
+const AO_ROLAR = [];
+let _agendado = false;
+addEventListener('scroll', () => {
+  if (_agendado) return;
+  _agendado = true;
+  requestAnimationFrame(() => {
+    _agendado = false;
+    const y = scrollY;
+    for (const f of AO_ROLAR) f(y);
+  });
+}, { passive: true });
+
+/* no celular, mostrar/esconder a barra do navegador dispara resize a cada rolada:
+   só remedimos de verdade quando a LARGURA muda */
+const AO_MEDIR = [];
+let _lw = innerWidth, _rt = null;
+function remede(soAltura){ for (const f of AO_MEDIR) f(soAltura); }
+addEventListener('resize', () => {
+  clearTimeout(_rt);
+  _rt = setTimeout(() => {
+    const soAltura = TOQUE_SO && innerWidth === _lw;
+    _lw = innerWidth;
+    remede(soAltura);
+  }, 160);
+});
+addEventListener('orientationchange', () => setTimeout(() => remede(false), 280));
+
 /* ===== barra do rolo ===== */
 const rolo = document.getElementById('rolo');
-addEventListener('scroll', () => {
+AO_ROLAR.push(() => {
   const h = document.documentElement;
   rolo.style.width = (h.scrollTop / (h.scrollHeight - h.clientHeight) * 100) + '%';
-}, { passive: true });
+});
+
+/* ===== MENU DE CELULAR ===== */
+(function menuMovel(){
+  const hamb = document.getElementById('hamb'), painelMenu = document.getElementById('menu');
+  if (!hamb || !painelMenu) return;
+  function abre(sim){
+    hamb.setAttribute('aria-expanded', sim ? 'true' : 'false');
+    hamb.setAttribute('aria-label', sim ? 'Fechar menu' : 'Abrir menu');
+    painelMenu.classList.toggle('aberto', sim);
+    painelMenu.setAttribute('aria-hidden', sim ? 'false' : 'true');
+    document.body.classList.toggle('menu-on', sim);
+  }
+  hamb.addEventListener('click', () => abre(!painelMenu.classList.contains('aberto')));
+  painelMenu.addEventListener('click', e => { if (e.target.closest('a') || e.target === painelMenu) abre(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && painelMenu.classList.contains('aberto')) abre(false); });
+  AO_MEDIR.push(soAltura => { if (!soAltura && innerWidth > 720) abre(false); });
+})();
 
 /* ===== cursor de diretor ===== */
 const dot = document.getElementById('dot'), anel = document.getElementById('anel');
@@ -1599,16 +1880,16 @@ document.querySelectorAll('.rev').forEach(el => io.observe(el));
 /* ===== CÉU: poeira de luz flutuando ===== */
 const ceu = document.getElementById('ceu'), cx2 = ceu.getContext('2d');
 let PS = [];
-const DPRg = Math.min(devicePixelRatio || 1, 2);   /* nitidez ultra HD em telas retina */
 function ceuSize(){ ceu.width = innerWidth * DPRg; ceu.height = innerHeight * DPRg;
   cx2.setTransform(DPRg, 0, 0, DPRg, 0, 0); }
-ceuSize(); addEventListener('resize', ceuSize);
-for (let i = 0; i < 70; i++) PS.push({
+ceuSize(); AO_MEDIR.push(() => ceuSize());
+for (let i = 0; i < (MODESTO ? 34 : 70); i++) PS.push({
   x: Math.random()*innerWidth, y: Math.random()*innerHeight,
   s: .5+Math.random()*1.6, v: .08+Math.random()*.25,
   a: .08+Math.random()*.4, tw: Math.random()*6.28
 });
 (function ceuLoop(t){
+  if (PAUSA){ requestAnimationFrame(ceuLoop); return; }
   cx2.clearRect(0,0,innerWidth,innerHeight);
   for (const p of PS){
     p.y -= p.v; if (p.y < -4){ p.y = innerHeight+4; p.x = Math.random()*innerWidth; }
@@ -1621,14 +1902,16 @@ for (let i = 0; i < 70; i++) PS.push({
   requestAnimationFrame(ceuLoop);
 })(0);
 
-/* ===== SHOWREEL: ondas de luz cinematográficas ===== */
+/* ===== MOSTRUÁRIO: ondas de luz cinematográficas ===== */
 const on = document.getElementById('ondas'), ox = on.getContext('2d');
 function reelSize(){ const r = on.parentElement.getBoundingClientRect();
   on.width = r.width * DPRg; on.height = r.height * DPRg;
   on._w = r.width; on._h = r.height;
   ox.setTransform(DPRg, 0, 0, DPRg, 0, 0); }
-reelSize(); addEventListener('resize', reelSize);
+reelSize(); AO_MEDIR.push(soAltura => { if (!soAltura) reelSize(); });
+const reelViz = noQuadro(document.getElementById('reel'));
 (function reelLoop(t){
+  if (!reelViz()){ requestAnimationFrame(reelLoop); return; }   /* fora do quadro: não desenha */
   const W = on._w || 0, H = on._h || 0;
   ox.clearRect(0,0,W,H);
   ox.globalCompositeOperation = 'lighter';
@@ -1651,11 +1934,11 @@ reelSize(); addEventListener('resize', reelSize);
 
 /* ===== 02: SISTEMA VIVO — o cartão troca de alma ===== */
 const TEMAS = [
-  { cls:'tema-nokta', marca:'NOKTA', tag:'design & tecnologia', site:'nokta.studio',
+  { cls:'tema-nokta', marca:'NOKTA', tag:'design e tecnologia', site:'nokta.studio',
     cores:['#7c5cff','#191036','#c9b8ff','#0c0a18'] },
   { cls:'tema-alva', marca:'Alva Café', tag:'torrefação artesanal', site:'alvacafe.com.br',
     cores:['#3d2b1f','#f4ead9','#c98f4e','#8a5a2e'] },
-  { cls:'tema-ruina', marca:'RUÍNA', tag:'streetwear brasil', site:'ruina.wear',
+  { cls:'tema-ruina', marca:'RUÍNA', tag:'moda urbana brasil', site:'ruina.wear',
     cores:['#ff5d6e','#1a0508','#ff8f9e','#3d0a12'] }
 ];
 const cartao = document.getElementById('cartao'), paleta = document.getElementById('paleta');
@@ -1675,7 +1958,9 @@ setInterval(aplicaTema, 2800);
 /* ===== 03: FEED — corações subindo + curtidas crescendo ===== */
 const fone = document.getElementById('fone'), likesEl = document.getElementById('likes');
 let likes = 12400;
+const foneViz = noQuadro(fone);
 setInterval(() => {
+  if (!foneViz()) return;            /* corações só sobem quando o celular está em cena */
   likes += 3 + Math.floor(Math.random() * 24);
   likesEl.textContent = (likes/1000).toFixed(1) + 'k';
   const c = document.createElement('span');
@@ -1685,7 +1970,7 @@ setInterval(() => {
   c.style.fontSize = (0.8 + Math.random() * 0.8) + 'rem';
   fone.appendChild(c);
   setTimeout(() => c.remove(), 2600);
-}, 900);
+}, MODESTO ? 1400 : 900);
 
 /* celular inclina em 3D com o mouse */
 if (matchMedia('(hover:hover)').matches) {
@@ -1698,17 +1983,6 @@ if (matchMedia('(hover:hover)').matches) {
   fone.addEventListener('mouseleave', () => fone.style.transform = '');
 }
 
-/* ===== TIMECODE SMPTE rodando ===== */
-const tc = document.getElementById('timecode');
-const t0 = performance.now();
-setInterval(() => {
-  const ms = performance.now() - t0;
-  const f = Math.floor(ms / (1000/24)) % 24;
-  const s = Math.floor(ms/1000) % 60, m = Math.floor(ms/60000) % 60, h = Math.floor(ms/3600000);
-  const p = n => String(n).padStart(2,'0');
-  tc.textContent = `VELTRIX · ${p(h)}:${p(m)}:${p(s)}:${p(f)}`;
-}, 42);
-
 /* ===== vazamentos de luz aleatórios ===== */
 const leak = document.getElementById('leak');
 (function agendaLeak(){
@@ -1720,41 +1994,26 @@ const leak = document.getElementById('leak');
 
 /* ===== DOLLY: o hero afasta como câmera subindo ===== */
 const heroWrap = document.querySelector('.hero .wrap');
-addEventListener('scroll', () => {
-  const y = scrollY, vh = innerHeight;
+AO_ROLAR.push(y => {
+  const vh = innerHeight;
   if (y < vh) {
     const p = y / vh;
     heroWrap.style.opacity = 1 - p*1.1;
     heroWrap.style.transform = `translateY(${p*-90}px) scale(${1 - p*.08})`;
   }
-}, { passive: true });
-
-/* ===== claquetes de cena ===== */
-(function planta(){
-  const mapa = [
-    ['Showreel','CENA 02 · TAKE 1'], ['O que fazemos','CENA 03 · TAKE 1'],
-    ['Manifesto','CENA 04 · TAKE ÚNICO'], ['Como trabalhamos','CENA 05 · TAKE 2'],
-    ['Explorações do estúdio','CENA 06 · TAKE 3'], ['Vagas limitadas por mês','CENA FINAL']
-  ];
-  document.querySelectorAll('.rotulo').forEach(r => {
-    const hit = mapa.find(([txt]) => r.textContent.trim() === txt);
-    if (!hit) return;
-    const s = document.createElement('span');
-    s.className = 'slate rev';
-    s.textContent = hit[1];
-    r.parentElement.insertBefore(s, r);
-    io.observe(s);
-  });
-})();
+});
 
 /* ===== marquee acelera com a velocidade do scroll ===== */
 const trilho = document.querySelector('.marquee-trilho');
-let ultY = scrollY, veloc = 0;
-addEventListener('scroll', () => { veloc = Math.min(Math.abs(scrollY - ultY), 80); ultY = scrollY; }, { passive:true });
+let ultY = scrollY, veloc = 0, durAtual = 0;
+AO_ROLAR.push(y => { veloc = Math.min(Math.abs(y - ultY), 80); ultY = y; });
 (function marqueeVel(){
-  veloc *= .92;
-  trilho.style.animationDuration = (26 - Math.min(veloc*.22, 18)) + 's';
   requestAnimationFrame(marqueeVel);
+  if (PAUSA) return;
+  veloc *= .92;
+  const d = 26 - Math.min(veloc * .22, 18);
+  /* só escreve no estilo quando muda de verdade: em repouso, zero recálculo */
+  if (Math.abs(d - durAtual) > .25){ durAtual = d; trilho.style.animationDuration = d + 's'; }
 })();
 
 /* ===== TRILHA AMBIENTE (gerada por código, opt-in) ===== */
@@ -1784,23 +2043,22 @@ btnSom.addEventListener('click', () => {
   }
   if (btnSom.classList.toggle('on')) {
     actx.resume(); ganho.gain.linearRampToValueAtTime(.8, actx.currentTime + 2);
-    btnSom.textContent = 'SOM · ON';
+    btnSom.textContent = 'SOM · LIGADO';
   } else {
     ganho.gain.linearRampToValueAtTime(0, actx.currentTime + 1);
-    btnSom.textContent = 'SOM · OFF';
+    btnSom.textContent = 'SOM · DESLIGADO';
   }
 });
 
 /* ============ PALAVRA VIVA: VELTRIX em milhares de partículas ============ */
 (function palavraViva(){
   const TOQUE = !matchMedia('(hover:hover)').matches;
-  const dica = document.querySelector('.dica-particulas');
-  if (TOQUE && dica) dica.textContent = 'Toca no nome e arrasta.';
   const casa = document.querySelector('.palavra-viva');
   const h1 = casa.querySelector('h1');
   const cv = document.getElementById('txparticulas');
   const cx = cv.getContext('2d');
-  let P = [], mX = -9999, mY = -9999, DPR = Math.min(devicePixelRatio || 1, 2);
+  let P = [], mX = -9999, mY = -9999;
+  const DPR = DPRg;
 
   function montar(){
     const r = casa.getBoundingClientRect();
@@ -1819,7 +2077,7 @@ btnSom.addEventListener('click', () => {
     ox2.fillText('VELTRIX', W/2, H/2);
     const img = ox2.getImageData(0, 0, W, H).data;
     P = [];
-    const passo = Math.max(TOQUE ? 4 : 3, Math.floor(W / 420));
+    const passo = Math.max(MODESTO ? 5 : 3, Math.floor(W / 420));
     for (let y = 0; y < H; y += passo)
       for (let x = 0; x < W; x += passo)
         if (img[(y * W + x) * 4 + 3] > 128) {
@@ -1836,7 +2094,8 @@ btnSom.addEventListener('click', () => {
 
   document.fonts.ready.then(() => setTimeout(montar, 2400));
   addEventListener('load', () => setTimeout(montar, 2600));   /* rede de segurança se fonts.ready atrasar */
-  addEventListener('resize', () => { clearTimeout(cv._rz); cv._rz = setTimeout(montar, 300); });
+  /* remonta só quando a largura muda (a barra do navegador não conta) */
+  AO_MEDIR.push(soAltura => { if (!soAltura) montar(); });
   addEventListener('mousemove', e => {
     const r = cv.getBoundingClientRect();
     mX = e.clientX - r.left; mY = e.clientY - r.top;
@@ -1850,7 +2109,11 @@ btnSom.addEventListener('click', () => {
   casa.addEventListener('touchmove', noToque, { passive: true });
   addEventListener('touchend', () => { mX = -9999; mY = -9999; });
 
+  const vivaViz = noQuadro(casa, '80px');
   (function anima(){
+    requestAnimationFrame(anima);
+    /* ~1.400 partículas só valem CPU enquanto o nome está na tela */
+    if (!P.length || !vivaViz()) return;
     const W = cv.width / DPR, H = cv.height / DPR;
     cx.clearRect(0, 0, W, H);
     for (const p of P) {
@@ -1867,7 +2130,6 @@ btnSom.addEventListener('click', () => {
       cx.fillStyle = `rgba(${p.cor},.95)`;
       cx.fillRect(p.x, p.y, p.s, p.s);
     }
-    requestAnimationFrame(anima);
   })();
 })();
 
@@ -1909,13 +2171,15 @@ btnSom.addEventListener('click', () => {
     wc._w = r.width; wc._h = r.height;
     wx.setTransform(DPRg, 0, 0, DPRg, 0, 0);
     E = [];
-    for (let i = 0; i < 170; i++) E.push({
+    for (let i = 0; i < (MODESTO ? 90 : 170); i++) E.push({
       a: Math.random() * 6.2832, r: Math.random() * Math.max(r.width, r.height) * .5,
       v: .4 + Math.random() * 2.2, s: .5 + Math.random() * 1.4
     });
   }
-  wSize(); addEventListener('resize', wSize);
+  wSize(); AO_MEDIR.push(soAltura => { if (!soAltura) wSize(); });
+  const warpViz = noQuadro(wc.parentElement);
   (function wLoop(){
+    if (!warpViz()){ requestAnimationFrame(wLoop); return; }     /* a cena final só acende quando chega */
     if (!wc.width) { wSize(); requestAnimationFrame(wLoop); return; }
     const W = wc._w, H = wc._h, cxx = W/2, cyy = H/2;
     wx.fillStyle = 'rgba(7,7,10,.32)'; wx.fillRect(0, 0, W, H);
@@ -1948,7 +2212,7 @@ function Fogo(cv){
   let vivo = false;
   function mede(){ cv.width = innerWidth * DPRg; cv.height = innerHeight * DPRg;
     ctx.setTransform(DPRg, 0, 0, DPRg, 0, 0); }
-  mede(); addEventListener('resize', mede);
+  mede(); AO_MEDIR.push(() => mede());
   const CORES = ['232,196,124','243,223,174','167,139,250','124,92,255','255,255,255'];
   /* a mesma luz do portal, recriada grão a grão */
   function corPortal(x, y){
@@ -1998,13 +2262,15 @@ function Fogo(cv){
   }
   this.faisca = (x, y, n, forca) => {
     if (REDUZ) return;
+    if (MODESTO) n = Math.ceil(n * .62);        /* mesmo efeito, 40% menos pixels no celular */
     for (let i = 0; i < n; i++){
       const ang = Math.random()*6.2832, v = (Math.random()**1.6) * forca + .6;
       F.push({ x, y, vx: Math.cos(ang)*v, vy: Math.sin(ang)*v*.8,
         s: 1 + Math.random()*2.2, vida: .9 + Math.random()*.5, dec: .012 + Math.random()*.02,
         cor: CORES[(Math.random()*CORES.length)|0] });
     }
-    if (F.length > 900) F.splice(0, F.length - 900);
+    const teto = MODESTO ? 420 : 900;
+    if (F.length > teto) F.splice(0, F.length - teto);
     if (!vivo){ vivo = true; loop(); }
   };
   this.anel = (x, y, cor) => {
@@ -2200,11 +2466,11 @@ document.querySelectorAll('.tile').forEach(el => {
   el.addEventListener('touchend', () => setTimeout(() => el.style.transform = '', 350));
 });
 
-/* todo toque em peça visual solta faíscas */
+/* toque em peça interativa: resposta discreta */
 document.addEventListener('click', e => {
   const alvo = e.target.closest('.joia,.tile,.cartao,.fone,.aba,.btn,.link-mundo');
   if (!alvo) return;
-  fogoTela.faisca(e.clientX, e.clientY, 46, 6.5);
+  fogoTela.faisca(e.clientX, e.clientY, 14, 3.5);
   if (alvo.classList.contains('joia')){
     alvo.classList.add('toco');
     alvo.classList.add('gira');                       /* 360 de vitrine no toque */
@@ -2215,26 +2481,24 @@ document.addEventListener('click', e => {
 
 /* ===== EXPLOSÕES NO SCROLL (descendo E subindo) ===== */
 let ultScrollV6 = scrollY, ultBurst = 0;
-addEventListener('scroll', () => {
+AO_ROLAR.push(y => {
   const agora = performance.now();
-  const dv = scrollY - ultScrollV6; ultScrollV6 = scrollY;
-  if (Math.abs(dv) > 42 && agora - ultBurst > 620 && entrou){
+  const dv = y - ultScrollV6; ultScrollV6 = y;
+  if (Math.abs(dv) > 60 && agora - ultBurst > 1100 && entrou){
     ultBurst = agora;
     const yb = dv > 0 ? innerHeight * .88 : innerHeight * .12;
-    for (let i = 0; i < 3; i++)
-      fogoTela.faisca(innerWidth * (.15 + Math.random() * .7), yb + (Math.random()-.5)*40, 26, 6);
+    fogoTela.faisca(innerWidth * (.25 + Math.random() * .5), yb, 10, 4);
   }
-}, { passive: true });
+});
 
 /* cada cena que entra no quadro = salva de faíscas */
 const io4 = new IntersectionObserver(es => es.forEach(e => {
   if (!e.isIntersecting || !entrou) return;
   const agora = performance.now();
-  if (agora - ultBurst < 700) return;
+  if (agora - ultBurst < 1400) return;
   ultBurst = agora;
   const yb = e.boundingClientRect.top > innerHeight/2 ? innerHeight * .82 : innerHeight * .18;
-  fogoTela.faisca(innerWidth * .25, yb, 30, 7);
-  fogoTela.faisca(innerWidth * .75, yb, 30, 7);
+  fogoTela.faisca(innerWidth * .5, yb, 12, 4.5);
 }), { threshold: .25 });
 document.querySelectorAll('section, .oficio').forEach(s => io4.observe(s));
 
@@ -2354,7 +2618,7 @@ document.querySelectorAll('.duvida').forEach(d => {
 /* ===== FAROL: quanto do estúdio você já viu ===== */
 const farol = document.getElementById('farol'), farolp = document.getElementById('farolp');
 let farolTotal = false;
-addEventListener('scroll', () => {
+AO_ROLAR.push(() => {
   if (farolTotal) return;
   const h = document.documentElement;
   const p = Math.min(Math.round(h.scrollTop / (h.scrollHeight - h.clientHeight) * 100), 100);
@@ -2362,10 +2626,10 @@ addEventListener('scroll', () => {
   if (p >= 96){
     farolTotal = true;
     farol.classList.add('total');
-    farol.innerHTML = 'Viu tudo? <b>Agora chama →</b>';
+    farol.innerHTML = '<span class="f-txt">Viu tudo? </span><b>Agora chama →</b>';
     fogoTela.faisca(90, innerHeight - 60, 40, 6);
   }
-}, { passive: true });
+});
 
 /* ===== COMETA: o cursor deixa rastro de faíscas ===== */
 if (matchMedia('(hover:hover)').matches && !REDUZ){
@@ -2394,11 +2658,23 @@ if (matchMedia('(hover:hover)').matches && !REDUZ){
     el.addEventListener('touchstart', () => el._segura = true, { passive: true });
     el.addEventListener('touchend', () => setTimeout(() => el._segura = false, 400));
   });
+  let _q = 0;
+  const lidos = [];
   (function ciclo(){
+    requestAnimationFrame(ciclo);
+    if (PAUSA) return;
+    if (MODESTO && (_q++ & 1)) return;         /* 30fps é de sobra pra um dissolve suave */
     const agora = performance.now();
+    /* PASSO 1 — lê TODOS os retângulos primeiro: um único recálculo de layout no quadro */
+    lidos.length = 0;
     for (const el of DISS){
       if (el._segura) continue;
-      const r = el.getBoundingClientRect();
+      lidos.push(el);
+      el._r = el.getBoundingClientRect();
+    }
+    /* PASSO 2 — só agora escreve (antes: leitura e escrita intercaladas = 8 reflows por quadro) */
+    for (const el of lidos){
+      const r = el._r;
       if (r.width === 0 || r.bottom < -140 || r.top > innerHeight + 140){ el._k = 1; continue; }
       const c = (r.top + r.height / 2 - innerHeight / 2) / (innerHeight / 2 + r.height / 2);
       const k = Math.max(Math.min(Math.abs(c) * 1.3 - .22, 1), 0);
@@ -2411,7 +2687,6 @@ if (matchMedia('(hover:hover)').matches && !REDUZ){
       }
       el._k = k;
     }
-    requestAnimationFrame(ciclo);
   })();
 })();
 
@@ -2472,11 +2747,6 @@ function cresceInsta(){
     }
   }, 380);
 }
-
-/* ===== todo clique vira um anel de luz ===== */
-document.addEventListener('click', e => {
-  if (entrou) fogoTela.anel(e.clientX, e.clientY, 'rgba(167,139,250,.6)');
-});
 
 /* ============================================================
    MOTORES v9 — portal em camadas 3D + explosões espontâneas
@@ -2554,22 +2824,6 @@ document.querySelectorAll('.contador').forEach(b => io6.observe(b));
   }, 4200);
 })();
 
-/* ===== TOQUE TOTAL: qualquer toque na tela reage com partículas ===== */
-document.addEventListener('touchstart', e => {
-  if (!entrou || REDUZ) return;
-  const t = e.touches[0]; if (!t) return;
-  fogoTela.faisca(t.clientX, t.clientY, 16, 4);
-  fogoTela.anel(t.clientX, t.clientY, 'rgba(167,139,250,.45)');
-}, { passive: true });
-/* o dedo arrastando deixa rastro de poeira dourada */
-let ultTrilha = 0;
-document.addEventListener('touchmove', e => {
-  if (!entrou || REDUZ) return;
-  const agora = performance.now();
-  if (agora - ultTrilha < 90) return;
-  ultTrilha = agora;
-  const t = e.touches[0]; if (t) fogoTela.faisca(t.clientX, t.clientY, 3, 1.8);
-}, { passive: true });
 </script>
 </body>
 </html>
