@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VELTRIX — Status na Nuvem</title>
+<meta name="theme-color" content="#0d0d13">
+<style>
+  :root{
+    --fundo:#0d0d13; --painel:#13131c; --linha:rgba(216,180,106,.16);
+    --ouro:#d8b46a; --ouro-claro:#f0d9a8; --ink:#e8e6df; --ink2:#a9a698; --ink3:#6f6d63;
+    --ok:#12a087; --lento:#ab9100; --down:#d64545;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    background:var(--fundo); color:var(--ink); min-height:100vh;
+    font-family:"Segoe UI",system-ui,-apple-system,sans-serif;
+    background-image:radial-gradient(900px 480px at 50% -10%, rgba(216,180,106,.08), transparent 65%);
+    padding:34px 18px 60px; display:flex; flex-direction:column; align-items:center; gap:26px;
+  }
+  .marca{font-size:34px; letter-spacing:.4em; font-weight:300; color:var(--ouro-claro);
+    text-shadow:0 0 28px rgba(216,180,106,.35); padding-left:.4em; text-align:center}
+  .sub{font-size:10px; letter-spacing:.42em; color:var(--ink2); text-transform:uppercase; text-align:center; padding-left:.42em}
+  .nuvem{font-size:11.5px; color:var(--ink3); letter-spacing:.06em; text-align:center; max-width:420px; line-height:1.7}
+  .nuvem b{color:var(--ouro)}
+  .lista{display:flex; flex-direction:column; gap:12px; width:100%; max-width:520px}
+  .card{
+    background:var(--painel); border:1px solid var(--linha); border-radius:14px; padding:16px 18px;
+    display:flex; align-items:center; gap:14px; box-shadow:0 14px 40px rgba(0,0,0,.5);
+  }
+  .pt{width:11px; height:11px; border-radius:50%; flex:none; background:var(--ink3)}
+  .st-ok .pt{background:var(--ok); box-shadow:0 0 10px var(--ok)}
+  .st-lento .pt,.st-alerta .pt{background:var(--lento); box-shadow:0 0 10px var(--lento)}
+  .st-down .pt{background:var(--down); box-shadow:0 0 10px var(--down); animation:pulsa 1.4s infinite}
+  @keyframes pulsa{0%,100%{opacity:1}50%{opacity:.35}}
+  .info{flex:1; min-width:0}
+  .nome{font-size:14.5px; font-weight:600; letter-spacing:.02em}
+  .url{font-size:11px; color:var(--ink3); word-break:break-all}
+  .rot{font-size:10px; letter-spacing:.16em; text-transform:uppercase; font-weight:700; white-space:nowrap}
+  .st-ok .rot{color:#7fe0c8}.st-lento .rot,.st-alerta .rot{color:#e8cf7a}.st-down .rot{color:#f0a0a0}
+  .ms{font-size:10.5px; color:var(--ink3); margin-top:2px; text-align:right}
+  .rodape{font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink3); text-align:center; line-height:2}
+  .rodape a{color:var(--ouro); text-decoration:none}
+</style>
+</head>
+<body>
+  <div>
+    <div class="marca">VELTRIX</div>
+    <div class="sub">Status na Nuvem · 24/7</div>
+  </div>
+  <div class="nuvem">Vigilância feita <b>na nuvem do GitHub</b>, de 15 em 15 minutos —
+    funciona independente de qualquer computador da agência.</div>
+  <div class="lista" id="lista">Carregando…</div>
+  <div class="rodape" id="rodape">—</div>
+<script>
+async function carrega(){
+  try{
+    const r=await fetch('status.json?t='+Date.now());
+    const d=await r.json();
+    const ROT={ok:'No ar',lento:'Lento',alerta:'Bloqueio bot',down:'Fora do ar'};
+    document.getElementById('lista').innerHTML=(d.sites||[]).map(s=>`
+      <div class="card st-${s.status}">
+        <span class="pt"></span>
+        <div class="info"><div class="nome">${s.nome}</div><div class="url">${s.url.replace('https://','')}</div></div>
+        <div><div class="rot">${ROT[s.status]||s.status}</div><div class="ms">${s.ms} ms</div></div>
+      </div>`).join('');
+    document.getElementById('rodape').innerHTML=
+      `Última mudança de status: ${d.atualizadoEm||'—'} · Veltrix © 2026`;
+  }catch(e){
+    document.getElementById('lista').innerHTML='<div class="card"><div class="info"><div class="nome">Aguardando a primeira ronda do vigia…</div></div></div>';
+  }
+}
+carrega(); setInterval(carrega,60000);
+</script>
+</body>
+</html>

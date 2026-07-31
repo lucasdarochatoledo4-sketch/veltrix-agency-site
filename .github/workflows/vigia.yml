@@ -1,0 +1,56 @@
+name: Vigia VELTRIX
+# Vigilancia 24/7 na nuvem (GitHub) - independente do PC do fundador.
+# Checa os sites de 15 em 15 min e publica o status em /status/.
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  vigiar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Checar sites
+        run: |
+          python3 - <<'EOF'
+          import json, time, urllib.request, datetime
+          sites = json.load(open('status/sites.json'))
+          res = []
+          for s in sites:
+              ini = time.time(); code = 0
+              try:
+                  req = urllib.request.Request(s['url'], headers={'User-Agent': 'Mozilla/5.0 (compatible; VeltrixVigia/1.0)'})
+                  r = urllib.request.urlopen(req, timeout=20)
+                  code = r.getcode()
+              except Exception as e:
+                  code = getattr(e, 'code', 0) or 0
+              ms = int((time.time() - ini) * 1000)
+              if 200 <= code < 400:
+                  st = 'lento' if ms >= 6000 else 'ok'
+              elif code in (401, 403, 429):
+                  st = 'alerta'
+              else:
+                  st = 'down'
+              res.append({'nome': s['nome'], 'url': s['url'], 'status': st, 'code': code, 'ms': ms})
+          agora = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=-3)))
+          estado = agora.strftime('%Y-%m-%d') + '|' + '|'.join(r['status'] for r in res)
+          out = {'atualizadoEm': agora.strftime('%d/%m/%Y %H:%M'), 'sites': res}
+          json.dump(out, open('status/status.json', 'w'), ensure_ascii=False, indent=1)
+          open('status/estado.txt', 'w').write(estado)
+          EOF
+
+      - name: Publicar se o status mudou (ou 1a ronda do dia)
+        run: |
+          if ! git diff --quiet -- status/estado.txt; then
+            git config user.name 'veltrix-vigia'
+            git config user.email 'vigia@veltrixagency.com.br'
+            git add status/status.json status/estado.txt
+            git commit -m 'vigia: atualizacao de status [skip ci]'
+            git push
+          fi
