@@ -1,19 +1,19 @@
 {
- "atualizadoEm": "11/08/2026 20:59",
+ "atualizadoEm": "11/08/2026 23:34",
  "sites": [
   {
    "nome": "Veltrix Agency — Site Oficial",
    "url": "https://veltrixagency.com.br/",
    "status": "ok",
    "code": 200,
-   "ms": 437
+   "ms": 435
   },
   {
    "nome": "GitHub Pages — Hospedagem",
    "url": "https://lucasdarochatoledo4-sketch.github.io/",
-   "status": "down",
-   "code": 0,
-   "ms": 57
+   "status": "ok",
+   "code": 200,
+   "ms": 306
   }
  ]
 }
